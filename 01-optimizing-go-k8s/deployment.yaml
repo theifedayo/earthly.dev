@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-golang-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-golang-app
+  template:
+    metadata:
+      labels:
+        app: my-golang-app
+    spec:
+      containers:
+        - name: my-golang-container
+          image: my-golang-image
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi

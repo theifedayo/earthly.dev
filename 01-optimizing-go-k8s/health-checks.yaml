@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-golang-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-golang-app
+  template:
+    metadata:
+      labels:
+        app: my-golang-app
+    spec:
+      containers:
+        - name: my-golang-container
+          image: my-golang-image
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
